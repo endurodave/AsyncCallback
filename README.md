@@ -1,7 +1,7 @@
 # Asynchronous Multicast Callbacks with Inter-Thread Messaging
 Simplify passing data between threads using this multithreaded, portable C++ asynchronous callback framework.
 
-Originally published on CodeProject at: <a href="https://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread"><strong>Asynchronous Multicast Callbacks with Inter-Thread Messaging</strong></a>
+Originally published on CodeProject at: <a href="http://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread"><strong>Asynchronous Multicast Callbacks with Inter-Thread Messaging</strong></a>
 
 <h2>Introduction</h2>
 
