@@ -1,0 +1,42 @@
+# Example CMake command line to create project build files:
+#
+# *** Windows ***
+# cmake -G "Visual Studio 17 2022" -A Win32 -B ../AsyncCallbackBuild -S .
+#
+# *** Linux ***
+# cmake -G "Unix Makefiles" -B ../AsyncCallbackBuild -S .
+
+# Specify the minimum CMake version required
+cmake_minimum_required(VERSION 3.10)
+
+# Project name and language (C or C++)
+project(AsyncCallback VERSION 1.0 LANGUAGES CXX)
+
+# Set C++ standard
+#set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Collect all .cpp and *.h source files in the current directory
+file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/*.cpp" "${CMAKE_SOURCE_DIR}/*.h")
+
+# Add subdirectories to include path
+include_directories( 
+    ${CMAKE_SOURCE_DIR}/AsyncCallback
+    ${CMAKE_SOURCE_DIR}/Examples
+    ${CMAKE_SOURCE_DIR}/PortWin
+)
+
+# Add an executable target
+add_executable(AsyncCallbackApp ${SOURCES})
+
+# Add subdirectories to build
+add_subdirectory(AsyncCallback)
+add_subdirectory(Examples)
+add_subdirectory(PortWin)
+
+target_link_libraries(AsyncCallbackApp PRIVATE 
+    AsyncCallbackLib
+    ExamplesLib
+    PortWinLib
+)
+
