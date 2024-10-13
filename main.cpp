@@ -3,6 +3,7 @@
 #include "SysData.h"
 #include "SysDataNoLock.h"
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -84,7 +85,7 @@ int main(void)
 	SysDataNoLock::GetInstance().SetSystemMode(SystemMode::SYS_INOP);
 
 	// Give time for callbacks to occur on worker threads
-	Sleep(1000);
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
 	workerThread1.ExitThread();
 	return 0;

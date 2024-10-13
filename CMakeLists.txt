@@ -23,7 +23,7 @@ file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/*.cpp" "${CMAKE_SOURCE_DIR}/*.h")
 include_directories( 
     ${CMAKE_SOURCE_DIR}/AsyncCallback
     ${CMAKE_SOURCE_DIR}/Examples
-    ${CMAKE_SOURCE_DIR}/PortWin
+    ${CMAKE_SOURCE_DIR}/Port
 )
 
 # Add an executable target
@@ -32,11 +32,11 @@ add_executable(AsyncCallbackApp ${SOURCES})
 # Add subdirectories to build
 add_subdirectory(AsyncCallback)
 add_subdirectory(Examples)
-add_subdirectory(PortWin)
+add_subdirectory(Port)
 
 target_link_libraries(AsyncCallbackApp PRIVATE 
     AsyncCallbackLib
     ExamplesLib
-    PortWinLib
+    PortLib
 )
 
