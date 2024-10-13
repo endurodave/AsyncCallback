@@ -1,4 +1,4 @@
-#include "WorkerThread.h"
+#include "WorkerThreadStd.h"
 #include "AsyncCallback.h"
 #include "SysData.h"
 #include "SysDataNoLock.h"
@@ -59,9 +59,6 @@ int main(void)
 	// Create the worker threads
 	workerThread1.CreateThread();
 	SysDataNoLock::GetInstance();
-
-	// Start the worker threads
-	ThreadWin::StartAllThreads();
 
 	// Create async callback and register a function pointer
 	AsyncCallback<int> callback;
