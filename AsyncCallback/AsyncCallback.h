@@ -5,7 +5,8 @@
 #include "Callback.h"
 #include "CallbackThread.h"
 
-// See http://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread
+// @see https://github.com/endurodave/AsyncCallback
+// David Lafreniere
 
 struct NoData {};
 
