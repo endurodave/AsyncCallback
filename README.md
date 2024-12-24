@@ -1,3 +1,8 @@
+![License MIT](https://img.shields.io/github/license/BehaviorTree/BehaviorTree.CPP?color=blue)
+[![conan Ubuntu](https://github.com/endurodave/AsyncCallback/actions/workflows/cmake_ubuntu.yml/badge.svg)](https://github.com/endurodave/AsyncCallback/actions/workflows/cmake_ubuntu.yml)
+[![conan Ubuntu](https://github.com/endurodave/AsyncCallback/actions/workflows/cmake_clang.yml/badge.svg)](https://github.com/endurodave/AsyncCallback/actions/workflows/cmake_clang.yml)
+[![conan Windows](https://github.com/endurodave/AsyncCallback/actions/workflows/cmake_windows.yml/badge.svg)](https://github.com/endurodave/AsyncCallback/actions/workflows/cmake_windows.yml)
+
 # Asynchronous Multicast Callbacks with Inter-Thread Messaging
 
 A C++ asynchronous callback framework simplifies passing data between threads.
