@@ -24,26 +24,15 @@ A C++ asynchronous callback framework simplifies passing data between threads.
 - [Heap](#heap)
 - [Porting](#porting)
 - [Code Size](#code-size)
+- [Asynchronous Library Comparison](#asynchronous-library-comparison)
 - [References](#references)
-- [Conclusion](#conclusion)
 
 
 # Preface
 
-Originally published on CodeProject at: <a href="http://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread"><strong>Asynchronous Multicast Callbacks with Inter-Thread Messaging</strong></a>
+Originally published on CodeProject at <a href="http://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread">Asynchronous Multicast Callbacks with Inter-Thread Messaging</a> with a 4.9 out of 5.0 user rating.
 
 <p><a href="https://www.cmake.org/">CMake</a>&nbsp;is used to create the build files. CMake is free and open-source software. Windows, Linux and other toolchains are supported. See the <strong>CMakeLists.txt </strong>file for more information.</p>
-
-<p>Asynchronous function invocation allows for easy movement of data between threads. The table below summarizes the various asynchronous function invocation implementations available in C and C++.</p>
-
-| Repository                                                                                            | Language | Key Delegate Features                                                                                                                                                                                                               | Notes                                                                                                                                                                                                      |
-|-------------------------------------------------------------------------------------------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <a href="https://github.com/endurodave/AsyncMulticastDelegateModern">AsyncMulticastDelegateModern</a> | C++17    | * Function-like template syntax<br> * Any delegate target function type (member, static, free, lambda)<br>  * N target function arguments<br> * N delegate subscribers<br> * Variadic templates<br> * Template metaprogramming      | * Most generic implementation<br> * Lowest lines of source code<br> * Slowest of all implementations<br> * Optional fixed block allocator support<br> * No remote delegate support<br> * Complex metaprogramming |
-| <a href="https://github.com/endurodave/AsyncMulticastDelegateCpp17">AsyncMulticastDelegateCpp17</a>   | C++17    | * Function-like template syntax<br> * Any delegate target function type (member, static, free, lambda)<br> * 5 target function arguments<br> * N delegate subscribers<br> * Optional fixed block allocator<br> * Variadic templates | * Selective compile using constexpr<br> * Avoids complex metaprogramming<br> * Faster than AsyncMulticastDelegateModern<br> * No remote delegate support                                                   |
-| <a href="https://github.com/endurodave/AsyncMulticastDelegateCpp11">AsyncMulticastDelegateCpp11</a>   | C++11    | * Function-like template syntax<br> * Any delegate target function type (member, static, free, lambda)<br> * 5 target function arguments<br> * N delegate subscribers<br> * Optional fixed block allocator                          | * High lines of source code<br> * Highly repetitive source code                                                                                                                                            |
-| <a href="https://github.com/endurodave/AsyncMulticastDelegate">AsyncMulticastDelegate</a>             | C++03    | * Traditional template syntax<br> * Any delegate target function type (member, static, free)<br> * 5 target function arguments<br> * N delegate subscribers<br> * Optional fixed block allocator                                    | * High lines of source code<br> * Highly repetitive source code                                                                                                                                            |
-| <a href="https://github.com/endurodave/AsyncCallback">AsyncCallback</a>                               | C++      | * Traditional template syntax<br> * Delegate target function type (static, free)<br> * 1 target function argument<br> * N delegate subscribers                                                                                      | * Low lines of source code<br> * Most compact C++ implementation<br> * Any C++ compiler                                                                                                                    |
-| <a href="https://github.com/endurodave/C_AsyncCallback">C_AsyncCallback</a>                           | C        | * Macros provide type-safety<br> * Delegate target function type (static, free)<br> * 1 target function argument<br> * Fixed delegate subscribers (set at compile time)<br> * Optional fixed block allocator                        | * Low lines of source code<br> * Very compact implementation<br> * Any C compiler                                                                                                                          |
 
 # Introduction
 
@@ -67,8 +56,6 @@ Originally published on CodeProject at: <a href="http://www.codeproject.com/Arti
 </ol>
 
 <p>The callback paradigm significantly eases multithreaded application development by placing the callback and callback data onto the thread of control that you specify. Exposing an asynchronous callback interface&nbsp;for a single class, module or an entire subsystem is extremely easy. The framework is no more difficult to use than a standard C callback but with more features.</p>
-
-<p>This article proposes an inter-thread communication mechanism utilizing asynchronous multicast callbacks. The attached source code implements all features above, as I&#39;ll demonstrate.</p>
 
 # Callbacks Background
 
@@ -491,10 +478,8 @@ class Callback
 
 <ol>
 	<li><code>AsyncCallback</code><strong> </strong>- core framework implementation files</li>
-	<li><code>PortWin</code><strong> </strong>&ndash; Windows-specific files (thread/lock)</li>
+	<li><code>Port</code><strong> </strong>&ndash; port-specific files</li>
 	<li><code>Examples</code> &ndash; sample code showing usage</li>
-	<li><code>VS2008 </code>&ndash;&nbsp;&nbsp;Visual Studio 2008 project files</li>
-	<li><code>VS2015</code> &ndash;&nbsp;Visual Studio 2015 project files</li>
 </ol>
 
 <p>The library has a single <code>abstract</code> class <code>CallbackThread </code>with a single pure <code>virtual</code> function:</p>
@@ -554,19 +539,22 @@ switch (msg.message)
 
 <p>The incremental code size of for each additional <code>AsyncCallback&lt;&gt;</code>, one subscriber, one registration call, and one callback invocation is around 120 bytes using full optimization. You&rsquo;d certainly use at least this much code moving data from one thread to another manually.</p>
 
+# Asynchronous Library Comparison
+
+<p>Asynchronous function invocation allows for easy movement of data between threads. The table below summarizes the various asynchronous function invocation implementations available in C and C++.</p>
+
+| Repository                                                                                            | Language | Key  Features                                                                                                                                                                                                               | Notes                                                                                                                                                                                                      |
+|-------------------------------------------------------------------------------------------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <a href="https://github.com/endurodave/DelegateMQ">DelegateMQ</a> | C++17    | * Function-like template syntax<br> * Any delegate target function type (member, static, free, lambda)<br>  * N target function arguments<br> * N delegate subscribers<br> * Variadic templates<br> * Template metaprogramming      | * Modern C++<br> * Invoke synchronously, asynchronously or remotely<br> * Extensive unit tests<br> |
+| <a href="https://github.com/endurodave/AsyncCallback">AsyncCallback</a>                               | C++      | * Traditional template syntax<br> * Delegate target function type (static, free)<br> * 1 target function argument<br> * N delegate subscribers                                                                                      | * Low lines of source code<br> * Most compact C++ implementation<br> * Any C++ compiler                                                                                                                    |
+| <a href="https://github.com/endurodave/C_AsyncCallback">C_AsyncCallback</a>                           | C        | * Macros provide type-safety<br> * Delegate target function type (static, free)<br> * 1 target function argument<br> * Fixed delegate subscribers (set at compile time)<br> * Optional fixed block allocator                        | * Low lines of source code<br> * Very compact implementation<br> * Any C compiler                         
+
 # References
 
 <ul>
-	<li><a href="http://www.codeproject.com/Articles/1084801/Replace-malloc-free-with-a-Fast-Fixed-Block-Memory"><strong>Replace malloc/free with a Fast Fixed Block Memory Allocator</strong></a> - by David Lafreniere</li>
-	<li><a href="http://www.codeproject.com/Articles/1095196/Win32-Thread-Wrapper-with-Synchronized-Start"><strong>Win32 Thread Wrapper with Synchronized Start</strong></a> - by David Lafreniere</li>
-	<li><strong><a href="http://www.codeproject.com/Articles/1156423/Cplusplus-State-Machine-with-Threads">C++ State Machine with Threads</a></strong> - by David Lafreniere</li>
+	<li><a href="https://github.com/endurodave/xallocator"><strong>Replace malloc/free with a Fast Fixed Block Memory Allocator</strong></a> - by David Lafreniere</li>
+	<li><a href="https://github.com/endurodave/StdWorkerThread"><strong>C++ std::thread Event Loop with Message Queue and Timer</strong></a> - by David Lafreniere</li>
+	<li><strong><a href="https://github.com/endurodave/StateMachineWithThreads">C++ State Machine with Threads</a></strong> - by David Lafreniere</li>
 </ul>
-
-# Conclusion
-
-<p>There are many ways to design a publisher/subscriber callback system. This version incorporates unique features I&#39;ve never seen before, especially the ease at which asynchronous callbacks are generated onto a client specified thread of control. The implementation was kept to a minimum to facilitate porting to any system embedded or otherwise.</p>
-
-<p>I&#39;ve used this technique on projects with great success. Each class or subsystem may expose one or more outgoing interfaces with <code>AsyncCallback&lt;&gt;</code> instances. Any code within the system is able to connect and receive asynchronous callbacks with worrying about cross-threading or the machinery to make it all work. A feature like this eases application design and architecturally standardizes inter-thread communication with a well-understood callback paradigm.</p>
-
 
 
