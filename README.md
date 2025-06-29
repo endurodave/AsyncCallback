@@ -7,11 +7,14 @@
 
 A C++ asynchronous callback framework simplifies passing data between threads.
 
+Originally published on CodeProject at <a href="http://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread">Asynchronous Multicast Callbacks</a> with a 4.9 out of 5.0 user rating.
+
 # Table of Contents
 
 - [Asynchronous Multicast Callbacks with Inter-Thread Messaging](#asynchronous-multicast-callbacks-with-inter-thread-messaging)
 - [Table of Contents](#table-of-contents)
-- [Preface](#preface)
+- [Getting Started](#getting-started)
+- [References](#references)
 - [Introduction](#introduction)
 - [Callbacks Background](#callbacks-background)
 - [Using the Code](#using-the-code)
@@ -25,14 +28,21 @@ A C++ asynchronous callback framework simplifies passing data between threads.
 - [Porting](#porting)
 - [Code Size](#code-size)
 - [Asynchronous Library Comparison](#asynchronous-library-comparison)
-- [References](#references)
+- [References](#references-1)
 
+# Getting Started
 
-# Preface
+[CMake](https://cmake.org/) is used to create the project build files on any Windows or Linux platform. 
 
-Originally published on CodeProject at <a href="http://www.codeproject.com/Articles/1092727/Asynchronous-Multicast-Callbacks-with-Inter-Thread">Asynchronous Multicast Callbacks with Inter-Thread Messaging</a> with a 4.9 out of 5.0 user rating.
+1. Clone the repository.
+2. From the repository root, run the following CMake command:   
+   `cmake -B Build .`
+3. Build and run the project within the `Build` directory. 
 
-<p><a href="https://www.cmake.org/">CMake</a>&nbsp;is used to create the build files. CMake is free and open-source software. Windows, Linux and other toolchains are supported. See the <strong>CMakeLists.txt </strong>file for more information.</p>
+# References
+
+* <a href="https://github.com/endurodave/C_AsyncCallback">C_AsyncCallback</a> - A C-language asynchronous callback library.
+* <a href="https://github.com/endurodave/DelegateMQ">DelegateMQ</a> - Invoke any C++ callable function synchronously or  asynchronously using delegates.
 
 # Introduction
 
@@ -455,7 +465,7 @@ class Callback
     // ...
 };</pre>
 
-<p>With <code>xallocator</code> in place, calling <code>operator new</code> or <code>delete </code>allows the fixed block allocator to take over the storage duties. How objects are created and destroyed is exactly the same, only the source of the memory is different. For more information on <code>xallocator</code>, and to get the source code, see the article &quot;<strong><a href="http://www.codeproject.com/Articles/1084801/Replace-malloc-free-with-a-Fast-Fixed-Block-Memory">Replace malloc/free with a Fast Fixed Block Memory Allocator</a></strong>&quot;. The only files needed are <em>Allocator.h/cpp</em> and <em>xallocator.h/cpp</em>.</p>
+<p>With <code>xallocator</code> in place, calling <code>operator new</code> or <code>delete </code>allows the fixed block allocator to take over the storage duties. How objects are created and destroyed is exactly the same, only the source of the memory is different. For more information on <code>xallocator</code>, and to get the source code, see the article &quot;<strong><a href="https://github.com/endurodave/xallocator">Replace malloc/free with a Fast Fixed Block Memory Allocator</a></strong>&quot;. The only files needed are <em>Allocator.h/cpp</em> and <em>xallocator.h/cpp</em>.</p>
 
 <p>To use <code>xallocator</code> in the callback framework, place <code>XALLOCATOR</code><strong> </strong>macros in the following class definitions:</p>
 
